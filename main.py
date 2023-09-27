@@ -1,5 +1,4 @@
 import json
-
 import requests as requests
 
 currencies = {
@@ -65,24 +64,20 @@ while flag:
     try:
         response = requests.get(api_url)
 
-        if response.status_code == requests.codes.ok:
-            responseDictionary = json.loads(response.text)
-            print(str(amount) + " " + convertFrom + " = " + str(responseDictionary.get("new_amount")) + " " + convertTo)
+        responseDictionary = json.loads(response.text)
+        print(str(amount) + " " + convertFrom + " = " + str(responseDictionary.get("new_amount")) + " " + convertTo)
 
-            while True:
-                print("Do you want to make another conversion? (Y/N)")
-                repeat = input().upper()
-                if repeat == "Y":
-                    break
-                elif repeat == "N":
-                    flag = False
-                    break
-                else:
-                    print("Invalid input.")
+        while True:
+            print("Do you want to make another conversion? (Y/N)")
+            repeat = input().upper()
+            if repeat == "Y":
+                break
+            elif repeat == "N":
+                flag = False
+                break
+            else:
+                print("Invalid input.")
 
-        else:
-            print("Error: ", response.status_code, response.text)
-            flag = False
     except:
         print("Unable to establish connection to the server. Please check your internet connection or try again later.")
         while True:
